@@ -2,7 +2,7 @@
     "metadata": {
         "name": "SangTacViet",
         "author": "vBook",
-        "version": 1,
+        "version": 2,
         "source": "https://sangtacviet.app",
         "regexp": "sangtacviet\\.app/truyen/[^/]+/\\d+/\\d+/?$",
         "description": "Đọc truyện trên sangtacviet.app (fanqie/sfacg/...)",
