@@ -8,7 +8,11 @@ function execute(input, page)
     query = setQueryPage(query, page);
 
     let apiUrl = BASE_URL + "/io/searchtp/searchBooks" + query;
-    let response = fetch(apiUrl);
+    let response = fetch(apiUrl, {
+        headers: {
+            "user-agent": UserAgent.android()
+        }
+    });
     if (!response.ok)
     {
         return Response.error("Không lấy được danh sách truyện.");

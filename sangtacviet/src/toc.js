@@ -16,7 +16,8 @@ function execute(url)
 
     let response = fetch(apiUrl, {
         headers: {
-            "Referer": p.novelUrl
+            "Referer": p.novelUrl,
+            "user-agent": UserAgent.android()
         }
     });
 

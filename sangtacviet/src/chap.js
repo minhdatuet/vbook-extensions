@@ -19,7 +19,8 @@ function execute(url)
         headers: {
             "Origin": BASE_URL,
             "Referer": p.chapterUrl,
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            "user-agent": UserAgent.android()
         },
         body: ""
     });
