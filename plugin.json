@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "author": "vBook",
+    "description": "Registry tối giản chỉ chứa SangTacViet"
+  },
+  "data": [
+    {
+      "name": "SangTacViet",
+      "author": "vBook",
+      "path": "https://raw.githubusercontent.com/minhdatuet/vbook-extensions/master/sangtacviet/plugin.zip",
+      "version": 1,
+      "source": "https://sangtacviet.app",
+      "icon": "https://raw.githubusercontent.com/minhdatuet/vbook-extensions/master/sangtacviet/icon.png",
+      "description": "Đọc truyện trên sangtacviet.app (fanqie/sfacg/...)",
+      "type": "novel",
+      "locale": "vi_VN"
+    }
+  ]
+}

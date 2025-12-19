@@ -1,0 +1,25 @@
+{
+    "metadata": {
+        "name": "SangTacViet",
+        "author": "vBook",
+        "version": 1,
+        "source": "https://sangtacviet.app",
+        "regexp": "sangtacviet\\.app/truyen/[^/]+/\\d+/\\d+/?$",
+        "description": "Đọc truyện trên sangtacviet.app (fanqie/sfacg/...)",
+        "locale": "vi_VN",
+        "type": "novel",
+        "language": "javascript"
+    },
+    "script": {
+        "home": "home.js",
+        "genre": "genre.js",
+        "search": "search.js",
+        "detail": "detail.js",
+        "toc": "toc.js",
+        "chap": "chap.js"
+    },
+    "config": {
+        "thread_num": 1,
+        "delay": 1500
+    }
+}
