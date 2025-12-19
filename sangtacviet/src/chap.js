@@ -70,13 +70,11 @@ function normalizeChapterHtmlToReadableHtml(contentHtml)
         .replace(/<br\s*\/?>/gi, " __BR__ ")
         .replace(/<\/p\s*>/gi, " __P__ ");
 
+    // Một số runtime không hỗ trợ thao tác DOM như replaceWith/after.
+    // Vì vậy chỉ parse để decode entity + lấy text, còn việc chèn khoảng trắng và xuống dòng
+    // được xử lý bằng token trước đó.
     let doc = Html.parse(contentHtml);
     doc.select("script,style").remove();
-
-    // Bỏ thẻ inline nhưng giữ text
-    doc.select("i,span").forEach(e => {
-        e.replaceWith(e.text());
-    });
 
     let text = doc.text();
 
