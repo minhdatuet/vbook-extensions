@@ -70,9 +70,7 @@ function normalizeChapterHtmlToReadableHtml(contentHtml)
         .replace(/<br\s*\/?>/gi, " __BR__ ")
         .replace(/<\/p\s*>/gi, " __P__ ");
 
-    // Một số runtime không hỗ trợ thao tác DOM như replaceWith/after.
-    // Vì vậy chỉ parse để decode entity + lấy text, còn việc chèn khoảng trắng và xuống dòng
-    // được xử lý bằng token trước đó.
+    // Runtime JS của vBook có giới hạn thao tác DOM, nên chỉ parse để decode entity + lấy text.
     let doc = Html.parse(contentHtml);
     doc.select("script,style").remove();
 

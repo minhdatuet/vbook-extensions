@@ -7,8 +7,8 @@
     {
       "name": "SangTacViet",
       "author": "vBook",
-      "path": "https://raw.githubusercontent.com/minhdatuet/vbook-extensions/2eae2219426e467fd89423f5b8765ec6a4eb6b02/sangtacviet/plugin.zip",
-      "version": 3,
+      "path": "https://raw.githubusercontent.com/minhdatuet/vbook-extensions/master/sangtacviet/plugin_v4.zip",
+      "version": 4,
       "source": "https://sangtacviet.app",
       "icon": "https://raw.githubusercontent.com/minhdatuet/vbook-extensions/2eae2219426e467fd89423f5b8765ec6a4eb6b02/sangtacviet/icon.png",
       "description": "Đọc truyện trên sangtacviet.app (fanqie/sfacg/...)",
