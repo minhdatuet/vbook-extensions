@@ -40,7 +40,53 @@ function execute(url)
         return Response.error("Lỗi tải chương (code=" + (json ? json.code : "unknown") + ").");
     }
 
-    return Response.success(json.data);
+    // SangTacViet thường trả HTML có nhiều thẻ inline (<i>, <span>...) đặt sát nhau,
+    // khi app render/strip có thể bị dính chữ. Chuẩn hóa về text rồi đổi lại thành <br>.
+    let content = json.data + "";
+    let html = normalizeChapterHtmlToReadableHtml(content);
+
+    return Response.success(html);
+}
+
+function normalizeChapterHtmlToReadableHtml(contentHtml)
+{
+    if (!contentHtml) return "";
+
+    // Loại bỏ thông báo hệ thống
+    contentHtml = contentHtml.replace(/@Bạn đang đọc bản lưu trong hệ thống\s*/g, "");
+
+    // Parse bằng jsoup
+    let doc = Html.parse(contentHtml);
+
+    // Bỏ script/style nếu có
+    doc.select("script,style").remove();
+
+    // Giữ xuống dòng: biến <br> thành \n trước khi text()
+    doc.select("br").after("\n");
+    doc.select("p").after("\n\n");
+
+    // Bỏ thẻ <i> nhưng giữ text (tránh dính chữ do inline tokens)
+    doc.select("i").forEach(e => {
+        e.replaceWith(e.text());
+    });
+
+    // Bỏ các span không cần thiết (nếu có) nhưng giữ text
+    doc.select("span").forEach(e => {
+        e.replaceWith(e.text());
+    });
+
+    // Lấy text đã được jsoup normalize whitespace (thường sẽ tự chèn space hợp lý)
+    let text = doc.text();
+
+    // Cleanup whitespace
+    text = text.replace(/\r/g, "");
+    text = text.replace(/[ \t]{2,}/g, " ");
+    text = text.replace(/ *\n */g, "\n");
+    text = text.trim();
+
+    // Đổi xuống dòng thành <br> để app hiển thị đúng
+    text = text.replace(/\n{3,}/g, "\n\n");
+    return text.replace(/\n/g, "<br>");
 }
 
 function parseChapterUrl(url)
