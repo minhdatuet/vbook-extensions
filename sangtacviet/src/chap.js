@@ -55,37 +55,46 @@ function normalizeChapterHtmlToReadableHtml(contentHtml)
     // Loại bỏ thông báo hệ thống
     contentHtml = contentHtml.replace(/@Bạn đang đọc bản lưu trong hệ thống\s*/g, "");
 
-    // Parse bằng jsoup
-    let doc = Html.parse(contentHtml);
+    // 1) Chèn khoảng trắng giữa các thẻ inline đặt sát nhau (nguồn gây dính chữ)
+    // Ví dụ hay gặp: </i><i ...>word</i><i ...>word2</i> => cần có khoảng trắng giữa các token.
+    contentHtml = contentHtml
+        .replace(/<\/i>\s*<i\b/gi, "</i> <i")
+        .replace(/<\/span>\s*<span\b/gi, "</span> <span")
+        .replace(/<\/b>\s*<b\b/gi, "</b> <b")
+        .replace(/<\/em>\s*<em\b/gi, "</em> <em")
+        .replace(/<\/strong>\s*<strong\b/gi, "</strong> <strong")
+        .replace(/<\/a>\s*<a\b/gi, "</a> <a");
 
-    // Bỏ script/style nếu có
+    // 2) Giữ xuống dòng bằng token trước khi parse/strip (vì doc.text() sẽ normalize whitespace)
+    contentHtml = contentHtml
+        .replace(/<br\s*\/?>/gi, " __BR__ ")
+        .replace(/<\/p\s*>/gi, " __P__ ");
+
+    let doc = Html.parse(contentHtml);
     doc.select("script,style").remove();
 
-    // Giữ xuống dòng: biến <br> thành \n trước khi text()
-    doc.select("br").after("\n");
-    doc.select("p").after("\n\n");
-
-    // Bỏ thẻ <i> nhưng giữ text (tránh dính chữ do inline tokens)
-    doc.select("i").forEach(e => {
+    // Bỏ thẻ inline nhưng giữ text
+    doc.select("i,span").forEach(e => {
         e.replaceWith(e.text());
     });
 
-    // Bỏ các span không cần thiết (nếu có) nhưng giữ text
-    doc.select("span").forEach(e => {
-        e.replaceWith(e.text());
-    });
-
-    // Lấy text đã được jsoup normalize whitespace (thường sẽ tự chèn space hợp lý)
     let text = doc.text();
+
+    // Khôi phục xuống dòng
+    text = text.replace(/__P__/g, "\n\n");
+    text = text.replace(/__BR__/g, "\n");
 
     // Cleanup whitespace
     text = text.replace(/\r/g, "");
     text = text.replace(/[ \t]{2,}/g, " ");
     text = text.replace(/ *\n */g, "\n");
-    text = text.trim();
 
-    // Đổi xuống dòng thành <br> để app hiển thị đúng
+    // Fix khoảng trắng trước dấu câu do bước chèn space
+    text = text.replace(/\s+([,.;:!?])/g, "$1");
+
+    text = text.trim();
     text = text.replace(/\n{3,}/g, "\n\n");
+
     return text.replace(/\n/g, "<br>");
 }
 
