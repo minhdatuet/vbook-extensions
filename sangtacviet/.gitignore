@@ -1,2 +1,3 @@
-# Intellij
-src/*
+# IntelliJ / IDE
+.idea/
+*.iml
