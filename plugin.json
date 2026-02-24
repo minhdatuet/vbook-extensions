@@ -9,7 +9,7 @@
       "author": "vBook",
       "path": "https://raw.githubusercontent.com/minhdatuet/vbook-extensions/988b587ac88d40ef27741ad172bb532ee6e49b00/sangtacviet/plugin.zip",
       "version": 4,
-      "source": "https://sangtacviet.app",
+      "source": "http://14.225.254.182/",
       "icon": "https://raw.githubusercontent.com/minhdatuet/vbook-extensions/988b587ac88d40ef27741ad172bb532ee6e49b00/sangtacviet/icon.png",
       "description": "Đọc truyện trên sangtacviet.app (fanqie/sfacg/...)",
       "type": "novel",
