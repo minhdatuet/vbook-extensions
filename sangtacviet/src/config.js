@@ -1,4 +1,4 @@
-let BASE_URL = "http://14.225.254.182/";
+let BASE_URL = "https://sangtacviet.app";
 try
 {
     if (CONFIG_URL)
